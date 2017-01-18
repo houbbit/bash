@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Mount preconfigured sshfs-mounts
+#
+echo [i] Mounting ~/dir/documents/
+sshfs -o reconnect hostname:dir/on/server/documents ~/dir/documents/
+echo [+] Mounted ~/dir/Documents/
+
+echo [i] Mounting ~/dir/pictures/
+sshfs -o reconnect hostname:dir/on/server/pictures ~/dir/pictures/
+echo [+] Mounted ~/dir/pictures/
+
+echo
+echo "Overview of active mounts:
+df -h |grep -e ^Filesystem -e "hostname" -e "/dir/"
+echo
+echo [i] Mounting process finished
