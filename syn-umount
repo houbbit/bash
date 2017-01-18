@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Unmount preconfigured sshfs-mounts
+#
+
+echo [i] Unounting ~/dir/documents/
+sudo umount ~/dir/documents/
+echo [+] Unmounted ~/dir/Documents/
+
+echo [i] Unounting ~/dir/pictures/
+sudo umount ~/dir/pictures/
+echo [+] Unmounted ~/dir/pictures/
+
+echo
+echo If mounts are still shown, umount them manually:
+df -h |grep -e ^Filesystem -e "irc" -e "/work/"
+echo
+echo [i] Unmounting process finished.
