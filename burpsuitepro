@@ -1,0 +1,6 @@
+#!/bin/bash
+# opens latest burpsuite
+burpsuite=`ls -1 ~/bin/Burpsuite/burpsuite*.jar | tail -1`
+echo "Opening $lastplan"
+java -jar $burpsuite
+exit 0;
