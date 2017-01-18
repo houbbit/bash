@@ -1,0 +1,33 @@
+#!/bin/bash
+#credits go to Remco Sprooten
+
+#Set default paths
+DEFAULT_PROF_PATH='/home/user/.mozilla/firefox/ac313iqd.TemplateProfile'
+FIREFOX_PROF_PATH='/home/user/.mozilla/firefox/'
+INIFILE="$FIREFOX_PROF_PATH"profiles.ini
+
+#Check if a profile name was supplied
+if [ $# -eq 0 ]; then
+    echo "ERROR: Please enter a name for your new profile"
+    exit
+fi
+
+#Check if profile name already exists
+if grep -q ^'Name='$1$ $INIFILE; then
+    echo ERROR: This profile already exists, please enter another name.
+    exit
+fi
+
+RANDOM_NAME=$(apg -c random_seed -n 1 -d -m 8 -x 8 -M NCL)
+NEW_PROF_NAME=$RANDOM_NAME.$1
+NEW_PROF_PATH=$FIREFOX_PROF_PATH$NEW_PROF_NAME
+
+NEW_PROF_NR=$(grep '\[Profile.\]' "$FIREFOX_PROF_PATH"profiles.ini | wc -l)
+cp -r "$DEFAULT_PROF_PATH" "$NEW_PROF_PATH"
+
+#Add new profile info to the Firefox ini file
+PROF="$PROF"'[Profile'"$NEW_PROF_NR"']'$'\n'
+PROF="$PROF"'Name='$1$'\n'
+PROF="$PROF"'IsRelative=1'$'\n'
+PROF="$PROF"'Path='"$NEW_PROF_NAME"$'\n'
+echo "$PROF" >> "$INIFILE"
