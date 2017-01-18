@@ -1,0 +1,12 @@
+#!/bin/bash
+#set home location
+HOME=“amsterdam”
+
+#When no location is given, use home location
+if [ $# -eq 0 ]; then
+curl wttr.in/$HOME
+exit
+fi
+
+#otherwise use given location
+curl wttr.in/$1
